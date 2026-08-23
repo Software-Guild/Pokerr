@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Navbar from './Navbar'
-import ActionLog, { type LogEntry } from './ActionLog'
-import PokerTable, { type Player } from './Table'
+import Navbar from './components/Navbar'
+import ActionLog, { type LogEntry } from './components/ActionLog'
+import PokerTable, { type Player } from './components/Table'
 import { Login } from './components/Login'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5000'
@@ -86,7 +86,7 @@ const logEntries: LogEntry[] = [
 function PokerGame({ user, onSignOut }: { user: User; onSignOut: () => void }) {
   return (
     <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-[#0b1330] font-sans text-slate-200">
-      <Navbar />
+      <Navbar userEmail={user.email} onSignOut={onSignOut} />
 
       <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden p-4 sm:p-6">
         <div className="pointer-events-none absolute inset-0">

@@ -21,15 +21,16 @@ function GearIcon() {
 
 const NAV_LINKS = ['Lobby', 'Tournaments', 'Leaderboard']
 
-const profile: Profile = {
+const baseProfile: Profile = {
   name: 'You',
   handle: '@you',
   chips: 5400,
   avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=you',
 }
 
-export default function Navbar() {
+export default function Navbar({ userEmail, onSignOut }: { userEmail: string; onSignOut: () => void }) {
   const [profileOpen, setProfileOpen] = useState(false)
+  const profile = { ...baseProfile, handle: userEmail }
 
   return (
     <header className="relative z-50 flex h-14 shrink-0 items-center justify-between border-b border-white/10 bg-[#0a1128]/90 px-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] backdrop-blur-md sm:px-6">
@@ -57,6 +58,9 @@ export default function Navbar() {
         <button className="text-slate-400 transition-colors hover:text-emerald-400" aria-label="Notifications">
           <BellIcon />
         </button>
+        <button className="text-slate-400 transition-colors hover:text-emerald-400" aria-label="Settings">
+          <GearIcon />
+        </button>
         <button
           onClick={() => setProfileOpen(true)}
           aria-label="Open profile"
@@ -70,7 +74,7 @@ export default function Navbar() {
         open={profileOpen}
         onClose={() => setProfileOpen(false)}
         profile={profile}
-        onLogout={() => setProfileOpen(false)}
+        onLogout={onSignOut}
       />
     </header>
   )
