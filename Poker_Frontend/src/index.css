@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: Inter, system-ui, sans-serif;
+@keyframes turn-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(16, 185, 129, 0);
+  }
 }
