@@ -1,121 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import Navbar from './Navbar'
+import ActionLog, { type LogEntry } from './ActionLog'
+import PokerTable, { type Player } from './Table'
+
+const players: Player[] = [
+  { id: 'you', name: 'You', chips: 5400, isHero: true, isTurn: true, bet: 400, cards: [{ rank: 'A', suit: 'd' }, { rank: 'A', suit: 'h' }] },
+  { id: 'fishy', name: 'Fishy', chips: 3100, folded: true },
+  { id: 'shark', name: 'Shark', chips: 8750, bet: 400 },
+  { id: 'progamer', name: 'ProGamer', chips: 10200, bet: 400 },
+  { id: 'nit', name: 'Nit', chips: 2400, folded: true },
+  { id: 'donk', name: 'Donk', chips: 6600, bet: 400 },
+]
+
+const logEntries: LogEntry[] = [
+  { id: '1', actor: 'Dealer', message: 'Hand #40291 started', tone: 'dealer' },
+  { id: '2', actor: 'Nit', message: 'folded', tone: 'fold' },
+  { id: '3', actor: 'Donk', message: 'raised to $400', tone: 'bet' },
+  { id: '4', actor: 'Shark', message: 'called $400', tone: 'player' },
+  { id: '5', actor: 'ProGamer', message: 'called $400', tone: 'player' },
+  { id: '6', actor: 'Fishy', message: 'folded', tone: 'fold' },
+  { id: '7', actor: 'You', message: 'called $400', tone: 'hero' },
+  { id: '8', actor: 'Dealer', message: 'flop dealt [Ah Kc Qd]', tone: 'dealer' },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-[#0b1330] font-sans text-slate-200">
+      <Navbar />
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden p-4 sm:p-6">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,_#141c3a_0%,_#0c1226_45%,_#05070f_100%)]" />
+          <div
+            className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+            }}
+          />
+          <div className="absolute inset-0 shadow-[inset_0_0_200px_90px_rgba(0,0,0,0.85)]" />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <PokerTable
+          players={players}
+          pot={2450}
+          communityCards={[
+            { rank: 'A', suit: 'h' },
+            { rank: 'K', suit: 'c' },
+            { rank: 'Q', suit: 'd' },
+            { rank: 'J', suit: 'c' },
+          ]}
+        />
+      </div>
+
+      <ActionLog entries={logEntries} />
+    </div>
   )
 }
 
