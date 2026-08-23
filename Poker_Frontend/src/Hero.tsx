@@ -1,5 +1,10 @@
 import { motion } from 'framer-motion';
+import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
 import { TablePreview } from './components/table/TablePreview';
+import { FeaturesSection } from './sections/FeaturesSection';
+import { PlayModesSection } from './sections/PlayModesSection';
+import { PokerRulesSection } from './sections/PokerRulesSection';
 
 const floaters = [
   { suit: '♠', x: '8%',  y: '18%', size: 64, rot: -15, dur: 5.5, delay: 0 },
@@ -26,7 +31,20 @@ const FloatingSuit = ({ suit, x, y, size, rot, dur, delay }: typeof floaters[0])
   </motion.div>
 );
 
-export const Hero = () => (
+type HeroPageProps = { onGoogleSignIn: () => void };
+
+export const HeroPage = ({ onGoogleSignIn }: HeroPageProps) => (
+  <div className="relative min-h-screen bg-[#0a0a0a] font-sans text-white selection:bg-white/20">
+    <Navbar onGoogleSignIn={onGoogleSignIn} />
+    <Hero onGoogleSignIn={onGoogleSignIn} />
+    <FeaturesSection />
+    <PlayModesSection />
+    <PokerRulesSection />
+    <Footer />
+  </div>
+);
+
+export const Hero = ({ onGoogleSignIn }: HeroPageProps) => (
   <section className="relative min-h-[92vh] overflow-hidden border-b border-white/[0.07] bg-[#070707] pt-20">
     {/* Floating suit symbols */}
     {floaters.map((f, i) => <FloatingSuit key={i} {...f} />)}
@@ -84,6 +102,8 @@ export const Hero = () => (
           className="flex flex-wrap items-center gap-3"
         >
           <motion.button
+            type="button"
+            onClick={onGoogleSignIn}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             className="bg-red-600 px-7 py-3.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(220,38,38,0.2)] transition-all hover:bg-red-500 hover:shadow-[0_0_36px_rgba(220,38,38,0.35)]"
